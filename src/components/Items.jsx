@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -22,7 +23,7 @@ function Items() {
         console.log(error);
       });
   };
-  console.log(shopItems.title);
+  console.log(shopItems);
 
   useEffect(() => {
     getResults();
@@ -31,22 +32,30 @@ function Items() {
   return (
     <div>
       <h1>My items</h1>
-      {shopItems.map((item) => {
-        return (
-          <Card key={item.id} sx={{ marginBottom: "20px" }}>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {item.title}
-              </Typography>
-              <CardMedia
-                sx={{ height: 140 }}
-                image={item.imageUrl}
-                title={item.title}
-              />
-            </CardContent>
-          </Card>
-        );
-      })}
+      {shopItems.map((item) => (
+        <Card key={item.id} sx={{ marginBottom: "20px" }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {item.title}
+            </Typography>
+            <CardMedia
+              sx={{ height: 140 }}
+              image={item.imageUrl}
+              title={item.title}
+            />
+            <Link to={`/product/${item.id}`}>
+              <Button
+                sx={{
+                  margin: "10px",
+                }}
+                variant="outlined"
+              >
+                View details
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 }
