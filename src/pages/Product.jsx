@@ -92,7 +92,7 @@ function Product() {
             }}
           >
             <h1>{productData.title}</h1>
-            <Typography sx={{}}>{productData.description}</Typography>
+            <Typography>{productData.description}</Typography>
           </Box>
 
           <Box

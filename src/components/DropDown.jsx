@@ -12,8 +12,8 @@ import useStore from "../store";
 function DropdownExample() {
   const [selectedValue, setSelectedValue] = useState(1);
   const [buttonText, setButtonText] = useState("+ add");
-  const increaseBy = useStore((state) => state.increaseBy);
-  const count = useStore((state) => state.count);
+  // const increaseBy = useStore((state) => state.increaseBy);
+  // const count = useStore((state) => state.count);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
