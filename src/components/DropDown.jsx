@@ -20,8 +20,8 @@ function DropdownExample() {
   };
 
   const handleValue = () => {
-    increaseBy(Number(selectedValue));
-    setButtonText("Added!");
+    // increaseBy(Number(selectedValue));
+    setButtonText(`Added ${selectedValue}!`);
     setTimeout(() => {
       setButtonText("+ add");
     }, 1500);

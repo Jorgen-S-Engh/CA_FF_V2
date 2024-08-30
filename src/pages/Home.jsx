@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import SelectFilter from "../components/SelectFilter";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -22,6 +20,7 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [shopItems, setShopItems] = useState([]);
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
 
   const getResults = async () => {
     try {
@@ -43,11 +42,19 @@ function Home() {
   }, []);
 
   console.log(shopItems);
-
-  const filteredItems = shopItems.filter(
-    (item) =>
+  const combinedFilter = shopItems.filter((item) => {
+    const matchedSearch =
       item.title.toLowerCase().includes(search.toLowerCase()) ||
-      item.description.toLowerCase().includes(search.toLowerCase())
+      item.description.toLowerCase().includes(search.toLowerCase());
+
+    const matchedCategory = category === "" || item.tags.includes(category);
+
+    return matchedCategory && matchedSearch;
+  });
+
+  const uniqueCat = shopItems.reduce(
+    (acc, curr) => [...new Set(acc.concat(curr.tags))],
+    []
   );
 
   if (loading) {
@@ -75,8 +82,27 @@ function Home() {
           onChange={(e) => setSearch(e.target.value)}
           sx={{ width: "50%" }}
         />
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="Filter"
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <MenuItem value="">None</MenuItem>
+              {uniqueCat.map((item, index) => (
+                <MenuItem key={item + index} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
       </Box>
-      <SelectFilter />
+
       <Typography
         variant="h4"
         component="h1"
@@ -89,7 +115,7 @@ function Home() {
         spacing={2}
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        {filteredItems.map((item) => (
+        {combinedFilter.map((item) => (
           <Grid item xs="auto" key={item.id}>
             <Card
               elevation={0}
