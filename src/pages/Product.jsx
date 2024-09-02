@@ -3,20 +3,18 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import useStore from "../store";
-import DropdownExample from "../components/DropDown";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
+import { cartStore } from "../cartStore";
+import { Button } from "@mui/material";
+import MySkelleton from "../components/MySkelleton";
 
 function Product() {
   const { id } = useParams();
   const [productData, setProductData] = useState(null);
-  // const addToCart = useStore((state) => state.addToCart);
-  // const increase = useStore((state) => state.increase);
-  // const decrease = useStore((state) => state.decrease);
+  const addToCart = cartStore((state) => state.addToCart);
 
   const getProductData = async () => {
     try {
@@ -35,38 +33,40 @@ function Product() {
     },
     [id]
   );
-  console.log(productData);
 
   if (!productData) {
-    return <div>loading...</div>;
+    return <MySkelleton amount={1} />;
   }
 
+  const handleAddToCart = () => {
+    addToCart(productData);
+  };
+
   return (
-    <Box
+    <Grid
+      container
+      spacing={1}
       sx={{
-        padding: "50px",
+        bgcolor: "rgba(250, 249, 241, 0.8)",
+        padding: "30px",
         display: "flex",
-        justifyContent: "start",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Grid
-        container
-        spacing={3}
-        sx={{
-          bgcolor: "rgba(250, 249, 241, 0.8)",
-          padding: "30px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        item
+        xs={12}
+        md={6}
+        sx={{ display: "flex", justifyContent: "center" }}
       >
-        <Grid item xs={12} md={6}>
-          <Box sx={{ width: "100%", minWidth: "200px", maxWidth: "300px" }}>
-            <img style={{ width: "100%" }} src={productData.imageUrl} alt="" />
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box sx={{}}>
+        <Box sx={{ width: "300px" }}>
+          <img style={{ width: "100%" }} src={productData.imageUrl} alt="" />
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Box>
+          <Box>
             <h1>{productData.title}</h1>
             <Typography>{productData.description}</Typography>
           </Box>
@@ -105,11 +105,12 @@ function Product() {
               alignItems: "center",
               justifyContent: "space-between",
             }}
-          >
-            <DropdownExample />
+          ></Box>
+          <Box sx={{ marginTop: "20px" }}>
+            <Button onClick={handleAddToCart}>Add to Cart</Button>
           </Box>
-        </Grid>
-        <Grid item>
+        </Box>
+        <Grid item sx={{ marginTop: "20px" }}>
           <Stack spacing={1}>
             {productData.rating === 0 ? (
               <Typography>No rating given</Typography>
@@ -125,7 +126,7 @@ function Product() {
           </Stack>
         </Grid>
       </Grid>
-    </Box>
+    </Grid>
   );
 }
 

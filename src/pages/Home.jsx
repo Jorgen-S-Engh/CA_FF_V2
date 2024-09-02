@@ -13,6 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import MySkelleton from "../components/MySkelleton";
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ function Home() {
       );
       setShopItems(response.data);
     } catch (error) {
-      console.log(error);
       setError(true);
       setErrorMessage(error.message);
     } finally {
@@ -58,11 +58,7 @@ function Home() {
   );
 
   if (loading) {
-    return (
-      <Box sx={{ textAlign: "center" }}>
-        <h1>Loading...</h1>
-      </Box>
-    );
+    return <MySkelleton headline="Products" amount={10} />;
   }
 
   if (error) {
@@ -162,9 +158,14 @@ function Home() {
                   )}
                 </Box>
               </CardContent>
-              <Box sx={{ paddingBottom: 2, alignSelf: "center" }}>
+              <Box
+                sx={{
+                  paddingBottom: 2,
+                  marginLeft: "10px",
+                }}
+              >
                 <Link to={`/product/${item.id}`}>
-                  <Button variant="outlined">View details</Button>
+                  <Button>View details</Button>
                 </Link>
               </Box>
             </Card>

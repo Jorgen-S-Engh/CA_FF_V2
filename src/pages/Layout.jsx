@@ -3,10 +3,10 @@ import { Outlet, Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Box } from "@mui/material";
-import useStore from "../store";
+import { cartStore } from "../cartStore";
 
 function Layout() {
-  const count = useStore((state) => state.count);
+  const cartItemCount = cartStore((state) => state.cartItemCount());
   return (
     <>
       <Box
@@ -48,9 +48,11 @@ function Layout() {
               alignItems: "center",
             }}
           >
-            <ShoppingBagIcon color="primary" sx={{ fontSize: 45 }} />
+            <Link to="/checkout">
+              <ShoppingBagIcon color="navy" sx={{ fontSize: 45 }} />
+            </Link>
 
-            {count > 0 ? (
+            {cartItemCount > 0 ? (
               <Box
                 sx={{
                   position: "absolute",
@@ -62,7 +64,7 @@ function Layout() {
                   fontWeight: "bold",
                 }}
               >
-                {count}
+                {cartItemCount}
               </Box>
             ) : (
               ""
