@@ -56,8 +56,6 @@ function Home() {
     []
   );
 
-  const uniqueCat2 = shopItems.reduce((acc, curr) => acc.concat(curr.tags), []);
-  console.log(uniqueCat2);
   if (loading) {
     return <MySkelleton headline="Products" amount={10} />;
   }
@@ -122,13 +120,13 @@ function Home() {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                border: "solid 1px gray",
               }}
             >
               <CardContent sx={{ flexGrow: 1 }}>
                 <CardMedia
                   sx={{
                     height: 200,
+                    borderRadius: "10px",
                   }}
                   image={item.imageUrl}
                   title={item.title}
@@ -166,7 +164,9 @@ function Home() {
                 }}
               >
                 <Link to={`/product/${item.id}`}>
-                  <Button>View details</Button>
+                  <Button sx={{ border: "solid 1px gray" }}>
+                    View details
+                  </Button>
                 </Link>
               </Box>
             </Card>

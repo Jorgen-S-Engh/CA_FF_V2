@@ -22,9 +22,7 @@ function Product() {
         `https://api.noroff.dev/api/v1/online-shop/${id}`
       );
       setProductData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(
@@ -107,7 +105,9 @@ function Product() {
             }}
           ></Box>
           <Box sx={{ marginTop: "20px" }}>
-            <Button onClick={handleAddToCart}>Add to Cart</Button>
+            <Button sx={{ border: "solid 1px gray" }} onClick={handleAddToCart}>
+              Add to Cart
+            </Button>
           </Box>
         </Box>
         <Grid item sx={{ marginTop: "20px" }}>
