@@ -41,7 +41,6 @@ function Home() {
     getResults();
   }, []);
 
-  console.log(shopItems);
   const combinedFilter = shopItems.filter((item) => {
     const matchedSearch =
       item.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -57,6 +56,8 @@ function Home() {
     []
   );
 
+  const uniqueCat2 = shopItems.reduce((acc, curr) => acc.concat(curr.tags), []);
+  console.log(uniqueCat2);
   if (loading) {
     return <MySkelleton headline="Products" amount={10} />;
   }
@@ -80,10 +81,10 @@ function Home() {
         />
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+            <InputLabel id="select-label">Filter</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="select-label"
+              id="select"
               value={category}
               label="Filter"
               onChange={(e) => setCategory(e.target.value)}

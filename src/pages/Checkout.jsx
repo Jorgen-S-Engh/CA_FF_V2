@@ -39,7 +39,7 @@ function Checkout() {
         cartItems.map((item) => (
           <Box
             key={item.id}
-            style={{
+            sx={{
               marginBottom: "20px",
               border: "solid 1px gray",
               padding: "40px",

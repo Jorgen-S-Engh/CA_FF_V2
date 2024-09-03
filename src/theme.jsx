@@ -3,10 +3,10 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#190000", // Din primærfarge
+      main: "#190000",
     },
     secondary: {
-      main: "#dc004e", // Din sekundærfarge
+      main: "#dc004e",
     },
   },
   components: {
