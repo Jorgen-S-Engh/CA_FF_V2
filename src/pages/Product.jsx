@@ -59,7 +59,11 @@ function Product() {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         <Box sx={{ width: "300px" }}>
-          <img style={{ width: "100%" }} src={productData.imageUrl} alt="" />
+          <img
+            style={{ width: "100%", borderRadius: "10px" }}
+            src={productData.imageUrl}
+            alt=""
+          />
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>

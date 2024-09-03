@@ -131,7 +131,11 @@ function Home() {
                   image={item.imageUrl}
                   title={item.title}
                 />
-                <Typography gutterBottom variant="h5">
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  sx={{ fontWeight: "bold" }}
+                >
                   {item.title}
                 </Typography>
                 <Box>
@@ -164,7 +168,7 @@ function Home() {
                 }}
               >
                 <Link to={`/product/${item.id}`}>
-                  <Button sx={{ border: "solid 1px gray" }}>
+                  <Button size="small" variant="outlined">
                     View details
                   </Button>
                 </Link>
