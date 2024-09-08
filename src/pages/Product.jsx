@@ -25,12 +25,13 @@ function Product() {
     } catch (error) {}
   };
 
-  useEffect(
-    function loadProductData() {
-      getProductData();
-    },
-    [id]
-  );
+  useEffect(function loadProductData() {
+    getProductData();
+  }, []);
+
+  if (productData) {
+    console.log(productData);
+  }
 
   if (!productData) {
     return <MySkelleton amount={1} />;
@@ -43,31 +44,37 @@ function Product() {
   return (
     <Grid
       container
-      spacing={1}
+      spacing={4}
       sx={{
         bgcolor: "rgba(250, 249, 241, 0.8)",
         padding: "30px",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <Grid
         item
-        xs={12}
-        md={6}
+        xs={10}
+        sm={6}
+        md={4}
+        lg={4}
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        <Box sx={{ width: "300px" }}>
+        <Box sx={{}}>
           <img
             style={{ width: "100%", borderRadius: "10px" }}
             src={productData.imageUrl}
-            alt=""
+            alt={productData.title}
           />
         </Box>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Box>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{ display: "flex", flexDirection: "column" }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box>
             <h1>{productData.title}</h1>
             <Typography>{productData.description}</Typography>
@@ -78,24 +85,22 @@ function Product() {
             }}
           >
             {productData.price <= productData.discountedPrice ? (
-              <Typography>{Math.round(productData.price)}</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>
+                Price: {Math.round(productData.price)}
+              </Typography>
             ) : (
               <>
-                <Typography
-                  variant="h6"
-                  component="h2"
-                  sx={{ margin: "20px 0px" }}
-                >
-                  SALE:
+                <Typography sx={{ fontSize: "0.8rem", marginBottom: "10px" }}>
+                  Before: {Math.round(productData.price)}
                 </Typography>
-                <Typography
-                  variant="span"
-                  sx={{ textDecoration: "line-through", marginRight: "10px" }}
-                >
-                  {Math.round(productData.price)}
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Now: {Math.round(productData.discountedPrice)}
                 </Typography>
-                <Typography variant="span">
-                  {Math.round(productData.discountedPrice)}
+                <Typography sx={{ fontWeight: "bold" }}>
+                  Save{" "}
+                  {Math.round(productData.price) -
+                    Math.round(productData.discountedPrice)}
+                  !
                 </Typography>
               </>
             )}
@@ -121,14 +126,51 @@ function Product() {
             ) : (
               <Typography>Rating</Typography>
             )}
-            <Rating
-              name="half-rating-read"
-              defaultValue={productData.rating}
-              precision={0.5}
-              readOnly
-            />
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                }}
+              >
+                <Rating
+                  name="half-rating-read"
+                  defaultValue={productData.rating}
+                  precision={0.5}
+                  readOnly
+                />
+                <Typography sx={{ marginLeft: "10px" }}>
+                  ({productData.reviews.length})
+                </Typography>
+              </Box>
+            </>
           </Stack>
         </Grid>
+      </Grid>
+      <Grid item xs={12} sm={10}>
+        {productData.reviews.map((item) => (
+          <Box
+            key={item.username}
+            sx={{ maxWidth: "400px", margin: "20px 0px" }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                marginBottom: "5px",
+              }}
+            >
+              <Rating defaultValue={item.rating} readOnly size="small"></Rating>
+              <Typography sx={{ fontSize: "0.8rem", fontWeight: "bold" }}>
+                {item.username}
+              </Typography>
+            </Box>
+            <Typography sx={{ fontStyle: "italic", fontSize: "0.8rem" }}>
+              {item.description}
+            </Typography>
+            <hr />
+          </Box>
+        ))}
       </Grid>
     </Grid>
   );

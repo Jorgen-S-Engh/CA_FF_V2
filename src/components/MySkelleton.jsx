@@ -5,7 +5,6 @@ function MySkelleton({ headline, amount }) {
   if (!amount) {
     amount = 10;
   }
-  console.log(amount);
 
   for (let i = 0; i < amount; i++) {
     skeletons.push(
