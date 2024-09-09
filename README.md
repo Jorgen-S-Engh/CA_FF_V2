@@ -1,3 +1,9 @@
+# Mock online shop
+
+Clone and run npm install
+
+Live demo: https://app.netlify.com/sites/bespoke-caramel-ca0bc9/overview
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

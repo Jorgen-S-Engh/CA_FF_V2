@@ -122,7 +122,7 @@ function Home() {
           onClick={handleClearAll}
           sx={{ marginLeft: "20px" }}
         >
-          Clear filter
+          Clear all
         </Button>
       </Box>
       <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
