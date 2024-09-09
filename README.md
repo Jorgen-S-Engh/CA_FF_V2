@@ -2,7 +2,7 @@
 
 Clone and run npm install
 
-Live demo: https://app.netlify.com/sites/bespoke-caramel-ca0bc9/overview
+Live demo: https://bespoke-caramel-ca0bc9.netlify.app/
 
 # React + Vite
 
